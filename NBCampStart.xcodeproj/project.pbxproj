@@ -6,8 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		5B2AAF892D77686A005EC1A0 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 5B2AAF882D77686A005EC1A0 /* .gitignore */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		5B2AAF602D7696F2005EC1A0 /* NBCampStart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NBCampStart.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5B2AAF882D77686A005EC1A0 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -45,6 +50,7 @@
 		5B2AAF572D7696F2005EC1A0 = {
 			isa = PBXGroup;
 			children = (
+				5B2AAF882D77686A005EC1A0 /* .gitignore */,
 				5B2AAF622D7696F2005EC1A0 /* NBCampStart */,
 				5B2AAF612D7696F2005EC1A0 /* Products */,
 			);
@@ -122,6 +128,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B2AAF892D77686A005EC1A0 /* .gitignore in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
