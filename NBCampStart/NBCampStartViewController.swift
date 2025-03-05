@@ -7,50 +7,47 @@
 
 import UIKit
 
-protocol AlbumDataDelegate: AnyObject {
-    func addData(albumData: AlbumData)
-    func editData(albumData: AlbumData, indexPathItem: Int)
+protocol AddDataDelegate: AnyObject {
+    func addData(cardData: CardData)
+}
+
+protocol SendDataDelegate: AnyObject {
+    func editData(cardData: CardData, indexPathItem: Int)
     func deleteData(indexPathItem: Int)
 }
 
 class NBCampStartViewController: UIViewController {
+    // MARK: - Variables & Constants
+    let sectionInsets = UIEdgeInsets(top: 30, left: 30, bottom: 30, right: 30)
+    var cardDataArr: [CardData] = []
+    
+    // MARK: - IBOutlets
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var addButton: UIButton!
     
-    @IBAction func addAlbumData(_ sender: Any) {
-        let addAlbumModalVC = AlbumDataModalViewController()
-        addAlbumModalVC.delegate = self
-        
-        if let sheet = addAlbumModalVC.sheetPresentationController {
-            sheet.detents = [.large()]
-        }
-        let modalNC = UINavigationController(rootViewController: addAlbumModalVC)
+    // MARK: - IBActions
+    @IBAction func addCardData(_ sender: Any) {
+        let addCardModalVC = CardDataModalViewController(
+            addDataDelegate: self,
+            isEdit: false
+        )
+        addCardModalVC.modalPresentationStyle = .fullScreen
+        let modalNC = UINavigationController(rootViewController: addCardModalVC)
         self.present(modalNC, animated: true)
     }
     
-    let sectionInsets = UIEdgeInsets(top: 30, left: 30, bottom: 30, right: 30)
-    var albumData: [AlbumData] = []
-    
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "내일배움캠프를 시작하며"
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(self.didDismissDetailNotification(_:)),
-            name: NSNotification.Name("DismissAlbumDataModalView"),
-            object: nil
-        )
         
         setupUI()
     }
-    
-    @objc func didDismissDetailNotification(_ notification: Notification) {
-          DispatchQueue.main.async {
-              self.collectionView.reloadData()
-          }
-      }
-    
+}
+
+// MARK: - UI Methods
+private extension NBCampStartViewController {
     func setupUI() {
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -60,6 +57,15 @@ class NBCampStartViewController: UIViewController {
         if let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             flowLayout.estimatedItemSize = .zero
         }
+    }
+}
+
+// MARK: - Private Methods
+private extension NBCampStartViewController {
+    @objc func didDismissDetailNotification(_ notification: Notification) {
+          DispatchQueue.main.async {
+              self.collectionView.reloadData()
+          }
     }
 }
 
@@ -94,18 +100,13 @@ extension NBCampStartViewController: UICollectionViewDelegateFlowLayout {
 // MARK: - UICollectionViewDelegate
 extension NBCampStartViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.item != albumData.count {
-            let editAlbumModalVC = AlbumDataModalViewController()
-            editAlbumModalVC.delegate = self
-            editAlbumModalVC.albumData = albumData[indexPath.item]
-            editAlbumModalVC.indexPathItem = indexPath.item
-            editAlbumModalVC.isEdit = true
-            
-            if let sheet = editAlbumModalVC.sheetPresentationController {
-                sheet.detents = [.large()]
-            }
-            let modalNC = UINavigationController(rootViewController: editAlbumModalVC)
-            self.present(modalNC, animated: true)
+        if indexPath.item != cardDataArr.count {
+            let cardVC = CardViewController(
+                sendDataDelegate: self,
+                cardData: cardDataArr[indexPath.item],
+                indexPathItem: indexPath.item
+            )
+            self.navigationController?.pushViewController(cardVC, animated: true)
         }
     }
 }
@@ -113,25 +114,28 @@ extension NBCampStartViewController: UICollectionViewDelegate {
 // MARK: - UICollectionViewDataSource
 extension NBCampStartViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if albumData.count == 0 {
+        if cardDataArr.count == 0 {
             return 1
         } else {
-            return albumData.count
+            return cardDataArr.count
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AlbumCell", for: indexPath) as? AlbumCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CardCell", for: indexPath) as? CardCell else {
             return UICollectionViewCell()
         }
         
-        if albumData.count == 0 {
-            let addPromptData = AlbumData(resolution: "오늘의 다짐을 생각해보세요",
-                                          objective: "오늘의 학습 목표를 세워보세요")
-            cell.configure(albumData: addPromptData)
-            cell.backgroundColor = .systemBackground.withAlphaComponent(0.9)
+        if cardDataArr.count == 0 {
+            let addPromptData = CardData(
+                resolution: "오늘의 다짐을 생각해보세요",
+                objective: "오늘의 학습 목표를 세워보세요",
+                date: .now
+            )
+            cell.configure(cardData: addPromptData)
+            cell.backgroundColor = .systemBackground.withAlphaComponent(0.85)
         } else {
-            cell.configure(albumData: albumData[indexPath.item])
+            cell.configure(cardData: cardDataArr[indexPath.item])
             cell.backgroundColor = .systemBackground
         }
         
@@ -139,20 +143,23 @@ extension NBCampStartViewController: UICollectionViewDataSource {
     }
 }
 
-// MARK: - SendDelegate
-extension NBCampStartViewController: AlbumDataDelegate {
-    func addData(albumData: AlbumData) {
-        self.albumData.append(albumData)
+// MARK: - AddDataDelegate
+extension NBCampStartViewController: AddDataDelegate {
+    func addData(cardData: CardData) {
+        self.cardDataArr.insert(cardData, at: 0)
         self.collectionView.reloadData()
     }
-    
-    func editData(albumData: AlbumData, indexPathItem: Int) {
-        self.albumData[indexPathItem] = albumData
+}
+
+// MARK: - SendDataDelegate
+extension NBCampStartViewController: SendDataDelegate {
+    func editData(cardData: CardData, indexPathItem: Int) {
+        self.cardDataArr[indexPathItem] = cardData
         self.collectionView.reloadData()
     }
     
     func deleteData(indexPathItem: Int) {
-        self.albumData.remove(at: indexPathItem)
+        self.cardDataArr.remove(at: indexPathItem)
         self.collectionView.reloadData()
     }
 }
