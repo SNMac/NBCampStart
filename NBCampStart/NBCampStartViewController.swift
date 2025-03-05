@@ -17,14 +17,15 @@ protocol SendDataDelegate: AnyObject {
 }
 
 class NBCampStartViewController: UIViewController {
-    // MARK: - Variables & Constants
     let sectionInsets = UIEdgeInsets(top: 30, left: 30, bottom: 30, right: 30)
     var cardDataArr: [CardData] = []
+    
     
     // MARK: - IBOutlets
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var addButton: UIButton!
+    
     
     // MARK: - IBActions
     @IBAction func addCardData(_ sender: Any) {
@@ -46,6 +47,7 @@ class NBCampStartViewController: UIViewController {
     }
 }
 
+
 // MARK: - UI Methods
 private extension NBCampStartViewController {
     func setupUI() {
@@ -60,6 +62,7 @@ private extension NBCampStartViewController {
     }
 }
 
+
 // MARK: - Private Methods
 private extension NBCampStartViewController {
     @objc func didDismissDetailNotification(_ notification: Notification) {
@@ -68,6 +71,7 @@ private extension NBCampStartViewController {
           }
     }
 }
+
 
 // MARK: - UICollectionViewDelegateFlowLayout
 extension NBCampStartViewController: UICollectionViewDelegateFlowLayout {
@@ -97,6 +101,7 @@ extension NBCampStartViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+
 // MARK: - UICollectionViewDelegate
 extension NBCampStartViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -110,6 +115,7 @@ extension NBCampStartViewController: UICollectionViewDelegate {
         }
     }
 }
+
 
 // MARK: - UICollectionViewDataSource
 extension NBCampStartViewController: UICollectionViewDataSource {
@@ -143,6 +149,7 @@ extension NBCampStartViewController: UICollectionViewDataSource {
     }
 }
 
+
 // MARK: - AddDataDelegate
 extension NBCampStartViewController: AddDataDelegate {
     func addData(cardData: CardData) {
@@ -150,6 +157,7 @@ extension NBCampStartViewController: AddDataDelegate {
         self.collectionView.reloadData()
     }
 }
+
 
 // MARK: - SendDataDelegate
 extension NBCampStartViewController: SendDataDelegate {

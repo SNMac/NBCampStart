@@ -28,6 +28,7 @@ class CardDataModalViewController: UIViewController {
         }
     }
     
+    
     // MARK: - UI Components
     private lazy var cancelButton: UIBarButtonItem = {
         let button = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(onCancel))
@@ -59,7 +60,11 @@ class CardDataModalViewController: UIViewController {
             objective: objective,
             date: cardData?.date ?? .now
         )
-        self.addDataDelegate?.addData(cardData: cardData!)
+        if isEdit {
+            self.editDataDelegate?.editData(cardData: cardData!, indexPathItem: indexPathItem!)
+        } else {
+            self.addDataDelegate?.addData(cardData: cardData!)
+        }
         self.dismiss(animated: true)
     }
     
@@ -163,6 +168,7 @@ class CardDataModalViewController: UIViewController {
         return label
     }()
     
+    
     // MARK: - Initializer
     init(
         addDataDelegate: AddDataDelegate? = nil,
@@ -182,6 +188,7 @@ class CardDataModalViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -214,6 +221,7 @@ class CardDataModalViewController: UIViewController {
         self.view.endEditing(true)
     }
 }
+
 
 // MARK: - UI Methods
 private extension CardDataModalViewController {
@@ -317,17 +325,34 @@ private extension CardDataModalViewController {
     func setCardData() {
         studyImage = cardData?.studyImage
         if let resolution = cardData?.resolution {
-            resolutionTextView.text = resolution
+            if resolution.isEmpty {
+                resolutionTextView.text = resoutionPlaceHolder
+                resolutionTextView.textColor = .placeholderText
+                resolutionTextCountLabel.text = "0/\(resolutionMaxLength)"
+            } else {
+                resolutionTextView.text = resolution
+                resolutionTextView.textColor = .label
+                resolutionTextCountLabel.text = "\(resolutionTextView.text.count)/\(resolutionMaxLength)"
+            }
         }
         
         if let objective = cardData?.objective {
-            objectiveTextView.text = objective
+            if objective.isEmpty {
+                objectiveTextView.text = objectivePlaceHolder
+                objectiveTextView.textColor = .placeholderText
+                objectiveTextCountLabel.text = "0/\(objectiveMaxLength)"
+            } else {
+                objectiveTextView.text = objective
+                objectiveTextView.textColor = .label
+                objectiveTextCountLabel.text = "\(objectiveTextView.text.count)/\(objectiveMaxLength)"
+            }
         }
         let dateFormatter = DateFormatter.getDateFormatter()
         let convertDate = dateFormatter.string(from: cardData?.date ?? .now)
         dateLabel.text = convertDate
     }
 }
+
 
 // MARK: - Private Methods
 private extension CardDataModalViewController {
@@ -377,6 +402,7 @@ private extension CardDataModalViewController {
     }
 }
 
+
 // MARK: - UITextViewDelegate
 extension CardDataModalViewController: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -390,10 +416,8 @@ extension CardDataModalViewController: UITextViewDelegate {
                 textView.resignFirstResponder()
                 return false
             }
-            
             return changedText.count <= resolutionMaxLength
         } else if textView == objectiveTextView {
-            
             return changedText.count <= objectiveMaxLength
         }
         return true
@@ -428,6 +452,7 @@ extension CardDataModalViewController: UITextViewDelegate {
         }
     }
     
+    
     func textViewDidChange(_ textView: UITextView) {
         if textView == resolutionTextView {
             resolutionTextCountLabel.text = "\(textView.text.count)/\(resolutionMaxLength)"
@@ -436,6 +461,7 @@ extension CardDataModalViewController: UITextViewDelegate {
         }
     }
 }
+
 
 // MARK: - PHPickerViewControllerDelegate
 extension CardDataModalViewController: PHPickerViewControllerDelegate {

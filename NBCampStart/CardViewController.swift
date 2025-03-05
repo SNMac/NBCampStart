@@ -7,6 +7,8 @@
 
 import UIKit
 
+
+// MARK: - Protocols
 protocol EditDataDelegate: AnyObject {
     func editData(cardData: CardData, indexPathItem: Int)
     func deleteData(indexPathItem: Int)
@@ -16,6 +18,7 @@ class CardViewController: UIViewController {
     weak var sendDataDelegate: SendDataDelegate?
     var cardData: CardData
     let indexPathItem: Int
+    
     
     // MARK: - UI Components
     private lazy var editButton: UIBarButtonItem = {
@@ -31,10 +34,10 @@ class CardViewController: UIViewController {
             indexPathItem: indexPathItem
         )
         
-        if let sheet = editCardModalVC.sheetPresentationController {
+        let modalNC = UINavigationController(rootViewController: editCardModalVC)
+        if let sheet = modalNC.sheetPresentationController {
             sheet.detents = [.large()]
         }
-        let modalNC = UINavigationController(rootViewController: editCardModalVC)
         self.present(modalNC, animated: true)
     }
     
@@ -70,6 +73,7 @@ class CardViewController: UIViewController {
         return label
     }()
     
+    
     // MARK: - Initializer
     init(sendDataDelegate: SendDataDelegate, cardData: CardData, indexPathItem: Int) {
         self.sendDataDelegate = sendDataDelegate
@@ -91,6 +95,7 @@ class CardViewController: UIViewController {
         setupUI()
     }
 }
+
 
 // MARK: - UI Methods
 private extension CardViewController {
@@ -142,10 +147,13 @@ private extension CardViewController {
     }
 }
 
+
 // MARK: - EditDataDelegate
 extension CardViewController: EditDataDelegate {
     func editData(cardData: CardData, indexPathItem: Int) {
+        self.cardData = cardData
         self.sendDataDelegate?.editData(cardData: cardData, indexPathItem: indexPathItem)
+        self.setCardData()
     }
     
     func deleteData(indexPathItem: Int) {
