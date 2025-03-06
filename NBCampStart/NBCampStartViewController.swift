@@ -30,6 +30,13 @@ class NBCampStartViewController: UIViewController {
     // MARK: - IBOutlets
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var collectionView: UICollectionView!
+    
+    @IBOutlet weak var promptView: UIView!
+    @IBOutlet weak var promptImageView: UIImageView!
+    @IBOutlet weak var promptResolutionLabel: UILabel!
+    @IBOutlet weak var promptObjectiveLabel: UILabel!
+    @IBOutlet weak var promptDateLabel: UILabel!
+    
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var addButton: UIButton!
     
@@ -62,6 +69,12 @@ class NBCampStartViewController: UIViewController {
 // MARK: - UI Methods
 private extension NBCampStartViewController {
     func setupUI() {
+        promptView.backgroundColor = .systemBackground.withAlphaComponent(0.85)
+        promptView.layer.cornerRadius = 10
+        promptImageView.layer.cornerRadius = 10
+        let dateFormatter = DateFormatter.getDateFormatter()
+        let convertDate = dateFormatter.string(from: .now)
+        promptDateLabel.text = convertDate
         pageControl.backgroundStyle = .prominent
         fetchCardModel()
         setCollectionView()
@@ -70,6 +83,13 @@ private extension NBCampStartViewController {
     func fetchCardModel() {
         cardModelArr = CoreDataManager.fetchData()
         pageControl.numberOfPages = cardModelArr.count
+        if pageControl.numberOfPages == 0 {
+            pageControl.isHidden = true
+            promptView.isHidden = false
+        } else {
+            pageControl.isHidden = false
+            promptView.isHidden = true
+        }
     }
     
     func setCollectionView() {
@@ -91,7 +111,7 @@ private extension NBCampStartViewController {
                 objective: cardModel.objective,
                 date: cardModel.date!
             )
-            cell.backgroundColor = .systemBackground
+            cell.backgroundColor = .secondarySystemBackground
             cell.configure(cardData)
             return cell
         })
@@ -103,7 +123,6 @@ private extension NBCampStartViewController {
         
         collectionView.collectionViewLayout = layout()
         collectionView.alwaysBounceVertical = false
-        collectionView.layer.cornerRadius = 10
         collectionView.backgroundColor = .clear
         collectionView.delegate = self
     }
@@ -112,7 +131,7 @@ private extension NBCampStartViewController {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.8), heightDimension: .fractionalHeight(0.8))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.8), heightDimension: .fractionalHeight(1.0))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         
         let section = NSCollectionLayoutSection(group: group)
@@ -133,6 +152,7 @@ private extension NBCampStartViewController {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
         snapshot.appendSections([.main])
         snapshot.appendItems(cardModelArr, toSection: .main)
+        snapshot.reconfigureItems(cardModelArr)
         dataSource.apply(snapshot, animatingDifferences: false)
     }
 }
@@ -141,8 +161,8 @@ private extension NBCampStartViewController {
 // MARK: - UICollectionViewDelegate
 extension NBCampStartViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.section != cardModelArr.count {
-            let card = cardModelArr[indexPath.section]
+        if indexPath.item != cardModelArr.count {
+            let card = cardModelArr[indexPath.item]
             var image: UIImage?
             if let imagePath = card.studyImagePath {
                 image = CoreDataManager.fetchImageFromDocuments(filePath: imagePath)
@@ -168,6 +188,9 @@ extension NBCampStartViewController: AddDataDelegate {
     func addData(cardData: CardData) {
         CoreDataManager.saveData(cardData: cardData)
         reloadData()
+        pageControl.currentPage = 0
+        let indexPath = IndexPath(item: pageControl.currentPage, section: 0)
+        collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
     }
 }
 

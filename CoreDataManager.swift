@@ -78,9 +78,9 @@ final class CoreDataManager {
     static func updateData(cardData: CardData, isImageDirty: Bool) {
         guard let context = context else { return }
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>.init(entityName: "CardModel")
-//        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "CardData")
+        //        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "CardData")
         fetchRequest.predicate = NSPredicate(format: "uuid = %@", cardData.uuid.uuidString)
-//        fetchRequest.predicate = NSPredicate(format: "uuid = %@", uuid as CVarArg)
+        //        fetchRequest.predicate = NSPredicate(format: "uuid = %@", uuid as CVarArg)
         
         do {
             guard let result = try? context.fetch(fetchRequest),
@@ -89,21 +89,18 @@ final class CoreDataManager {
             if isImageDirty {
                 let oldImagePath = object.value(forKey: "studyImagePath") as? String
                 if let imagePath = oldImagePath {
-                    if deleteImageAtDocuments(filePath: imagePath) {
-                        let newImagePath: String?
-                        if let image = cardData.studyImage {
-                            let fileName = "\(ProcessInfo.processInfo.globallyUniqueString).jpeg"
-                            let filePath = saveImageToDocuments(image: image, fileName: fileName)
-                            newImagePath = filePath
-                        } else {
-                            newImagePath = nil
-                        }
-                        
-                        object.setValue(newImagePath, forKey: "studyImagePath")
-                    }
+                    deleteImageAtDocuments(filePath: imagePath)
                 }
+                let newImagePath: String?
+                if let image = cardData.studyImage {
+                    let fileName = "\(ProcessInfo.processInfo.globallyUniqueString).jpeg"
+                    let filePath = saveImageToDocuments(image: image, fileName: fileName)
+                    newImagePath = filePath
+                } else {
+                    newImagePath = nil
+                }
+                object.setValue(newImagePath, forKey: "studyImagePath")
             }
-            
             object.setValue(cardData.resolution, forKey: "resolution")
             object.setValue(cardData.objective, forKey: "objective")
             
@@ -163,19 +160,15 @@ final class CoreDataManager {
     }
     
     // 로컬 디렉토리에서 이미지 삭제
-    @discardableResult
-    static func deleteImageAtDocuments(filePath: String) -> Bool {
+    static func deleteImageAtDocuments(filePath: String) {
         if FileManager.default.fileExists(atPath: filePath) {
             do {
                 try FileManager.default.removeItem(atPath: filePath)
-                return true
             } catch {
                 let msg = "\(error)"
                 os_log("Failed to delete image to documents: %@", log: log, type: .error, msg)
             }
         }
-        
-        return false
     }
     
     // Documents 디렉토리 경로 가져오기

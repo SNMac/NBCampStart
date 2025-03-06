@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="TsU-Af-9Ut">
-    <device id="retina6_9" orientation="portrait" appearance="light"/>
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Image references" minToolsVersion="12.0"/>
@@ -15,17 +15,17 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="NBCampStartViewController" customModule="NBCampStart" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="440" height="956"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="zep" translatesAutoresizingMaskIntoConstraints="NO" id="VjT-1b-PAq">
-                                <rect key="frame" x="0.0" y="106" width="440" height="850"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                             </imageView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="4S7-tZ-dVE">
-                                <rect key="frame" x="0.0" y="136" width="440" height="586.66666666666663"/>
+                                <rect key="frame" x="0.0" y="84" width="375" height="422"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="4S7-tZ-dVE" secondAttribute="height" multiplier="3:4" id="eoQ-wc-ipS"/>
+                                    <constraint firstAttribute="width" secondItem="4S7-tZ-dVE" secondAttribute="height" multiplier="8:9" id="mrh-tX-eQ3"/>
                                 </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="hPp-Oj-mVp">
                                     <size key="itemSize" width="393" height="464"/>
@@ -35,27 +35,27 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CardCell" id="TVp-I7-3DR" customClass="CardCell" customModule="NBCampStart" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="61.333333333333336" width="393" height="464"/>
+                                        <rect key="frame" x="0.0" y="-21" width="393" height="464"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="8rc-W6-wjI">
                                             <rect key="frame" x="0.0" y="0.0" width="393" height="464"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="q1Z-Pe-rzj">
-                                                    <rect key="frame" x="10" y="10" width="373" height="279.66666666666669"/>
+                                                    <rect key="frame" x="10" y="10" width="373" height="280"/>
                                                     <color key="backgroundColor" systemColor="placeholderTextColor"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="q1Z-Pe-rzj" secondAttribute="height" multiplier="4:3" id="cvk-3v-BDK"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KWQ-vm-3Nz">
-                                                    <rect key="frame" x="15" y="309.66666666666669" width="363" height="24"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="오늘의 다짐을 생각해보세요" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KWQ-vm-3Nz">
+                                                    <rect key="frame" x="15" y="310" width="363" height="24"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sL3-2B-6pc">
-                                                    <rect key="frame" x="15" y="343.66666666666669" width="363" height="18"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="오늘의 학습 목표를 세워보세요" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sL3-2B-6pc">
+                                                    <rect key="frame" x="15" y="344" width="363" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -91,14 +91,62 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0rn-Zl-PCg">
+                                <rect key="frame" x="30" y="84" width="315" height="422"/>
+                                <userGuides>
+                                    <userLayoutGuide location="299" affinity="minY"/>
+                                    <userLayoutGuide location="299" affinity="minY"/>
+                                </userGuides>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="403-pO-dCs">
+                                        <rect key="frame" x="10" y="10" width="295" height="221.5"/>
+                                        <color key="backgroundColor" systemColor="placeholderTextColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="403-pO-dCs" secondAttribute="height" multiplier="4:3" id="GJw-ls-eSg"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="오늘의 다짐을 생각해보세요" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Otz-aL-lyL">
+                                        <rect key="frame" x="15" y="251.5" width="285" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="오늘의 학습 목표를 세워보세요" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="os8-Ah-nYW">
+                                        <rect key="frame" x="15" y="282" width="285" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KOw-IY-i9M">
+                                        <rect key="frame" x="141" y="386" width="33" height="16"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="os8-Ah-nYW" firstAttribute="leading" secondItem="Otz-aL-lyL" secondAttribute="leading" id="0Qu-Gn-AUV"/>
+                                    <constraint firstItem="Otz-aL-lyL" firstAttribute="top" secondItem="403-pO-dCs" secondAttribute="bottom" constant="20" id="FHK-c4-lUK"/>
+                                    <constraint firstItem="403-pO-dCs" firstAttribute="top" secondItem="0rn-Zl-PCg" secondAttribute="top" constant="10" id="Hp0-Vk-A0k"/>
+                                    <constraint firstAttribute="trailing" secondItem="Otz-aL-lyL" secondAttribute="trailing" constant="15" id="NbP-2R-9F8"/>
+                                    <constraint firstItem="Otz-aL-lyL" firstAttribute="leading" secondItem="0rn-Zl-PCg" secondAttribute="leading" constant="15" id="PBW-ks-Kog"/>
+                                    <constraint firstAttribute="trailing" secondItem="403-pO-dCs" secondAttribute="trailing" constant="10" id="X2U-J9-f6s"/>
+                                    <constraint firstItem="KOw-IY-i9M" firstAttribute="centerX" secondItem="0rn-Zl-PCg" secondAttribute="centerX" id="YbF-Y5-Cwr"/>
+                                    <constraint firstItem="403-pO-dCs" firstAttribute="leading" secondItem="0rn-Zl-PCg" secondAttribute="leading" constant="10" id="dLu-6U-kyo"/>
+                                    <constraint firstItem="os8-Ah-nYW" firstAttribute="trailing" secondItem="Otz-aL-lyL" secondAttribute="trailing" id="fa6-dv-Zj5"/>
+                                    <constraint firstAttribute="bottom" secondItem="KOw-IY-i9M" secondAttribute="bottom" constant="20" id="jul-lg-1Nq"/>
+                                    <constraint firstItem="os8-Ah-nYW" firstAttribute="top" secondItem="Otz-aL-lyL" secondAttribute="bottom" constant="10" id="rlj-mi-nkp"/>
+                                </constraints>
+                            </view>
                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="0Xw-Go-Mx5">
-                                <rect key="frame" x="183.66666666666666" y="722.66666666666663" width="72.999999999999972" height="26"/>
+                                <rect key="frame" x="150.5" y="516" width="74" height="26"/>
                                 <connections>
                                     <action selector="changePage:" destination="BYZ-38-t0r" eventType="valueChanged" id="meo-TW-pdF"/>
                                 </connections>
                             </pageControl>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fAw-7k-x0o">
-                                <rect key="frame" x="195" y="768.66666666666663" width="50" height="50"/>
+                                <rect key="frame" x="162.5" y="572" width="50" height="50"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" cornerStyle="capsule">
                                     <imageReference key="image" image="plus" catalog="system" symbolScale="default"/>
@@ -112,17 +160,21 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="0rn-Zl-PCg" firstAttribute="leading" secondItem="4S7-tZ-dVE" secondAttribute="leading" constant="30" id="25a-ZR-FG0"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="4S7-tZ-dVE" secondAttribute="trailing" id="5wj-ha-LvZ"/>
+                            <constraint firstItem="0rn-Zl-PCg" firstAttribute="bottom" secondItem="4S7-tZ-dVE" secondAttribute="bottom" id="BxI-Cm-ZWb"/>
                             <constraint firstItem="fAw-7k-x0o" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="C8r-F5-OjK"/>
                             <constraint firstItem="4S7-tZ-dVE" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="JVx-Y1-RiP"/>
                             <constraint firstItem="0Xw-Go-Mx5" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="NDU-e5-7fR"/>
-                            <constraint firstItem="4S7-tZ-dVE" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="30" id="OWf-yr-e2v"/>
+                            <constraint firstItem="4S7-tZ-dVE" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="OWf-yr-e2v"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="VjT-1b-PAq" secondAttribute="trailing" id="TEc-GT-sBK"/>
-                            <constraint firstItem="fAw-7k-x0o" firstAttribute="top" secondItem="0Xw-Go-Mx5" secondAttribute="bottom" constant="20" id="ToX-do-18d"/>
+                            <constraint firstItem="fAw-7k-x0o" firstAttribute="top" secondItem="0Xw-Go-Mx5" secondAttribute="bottom" constant="30" id="ToX-do-18d"/>
+                            <constraint firstItem="0rn-Zl-PCg" firstAttribute="top" secondItem="4S7-tZ-dVE" secondAttribute="top" id="WWm-cH-vch"/>
                             <constraint firstItem="VjT-1b-PAq" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="dTe-RS-Suf"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="top" secondItem="VjT-1b-PAq" secondAttribute="top" id="fEg-iK-bem"/>
                             <constraint firstItem="VjT-1b-PAq" firstAttribute="bottom" secondItem="8bC-Xf-vdC" secondAttribute="bottom" id="kiq-Jd-UMk"/>
-                            <constraint firstItem="0Xw-Go-Mx5" firstAttribute="top" secondItem="4S7-tZ-dVE" secondAttribute="bottom" id="niO-Og-5Uf"/>
+                            <constraint firstItem="0Xw-Go-Mx5" firstAttribute="top" secondItem="4S7-tZ-dVE" secondAttribute="bottom" constant="10" id="niO-Og-5Uf"/>
+                            <constraint firstItem="0rn-Zl-PCg" firstAttribute="trailing" secondItem="4S7-tZ-dVE" secondAttribute="trailing" constant="-30" id="t41-lZ-U1k"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="sGl-KK-C3E"/>
@@ -131,6 +183,11 @@
                         <outlet property="backgroundImageView" destination="VjT-1b-PAq" id="WpQ-5i-IUP"/>
                         <outlet property="collectionView" destination="4S7-tZ-dVE" id="HgN-db-5K3"/>
                         <outlet property="pageControl" destination="0Xw-Go-Mx5" id="i1y-Vr-Xbr"/>
+                        <outlet property="promptDateLabel" destination="KOw-IY-i9M" id="ARh-se-YwT"/>
+                        <outlet property="promptImageView" destination="403-pO-dCs" id="K1a-19-h6x"/>
+                        <outlet property="promptObjectiveLabel" destination="os8-Ah-nYW" id="Fmb-Gm-DRB"/>
+                        <outlet property="promptResolutionLabel" destination="Otz-aL-lyL" id="hL5-1D-DE5"/>
+                        <outlet property="promptView" destination="0rn-Zl-PCg" id="JFo-jp-MVT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -143,7 +200,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="TsU-Af-9Ut" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="QfV-kq-vOu">
-                        <rect key="frame" x="0.0" y="62" width="440" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
