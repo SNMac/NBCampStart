@@ -93,6 +93,9 @@
                             </collectionView>
                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="0Xw-Go-Mx5">
                                 <rect key="frame" x="183.66666666666666" y="722.66666666666663" width="72.999999999999972" height="26"/>
+                                <connections>
+                                    <action selector="changePage:" destination="BYZ-38-t0r" eventType="valueChanged" id="meo-TW-pdF"/>
+                                </connections>
                             </pageControl>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fAw-7k-x0o">
                                 <rect key="frame" x="195" y="768.66666666666663" width="50" height="50"/>

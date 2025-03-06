@@ -35,6 +35,11 @@ class NBCampStartViewController: UIViewController {
     
     
     // MARK: - IBActions
+    @IBAction func changePage(_ sender: UIPageControl) {
+        let indexPath = IndexPath(item: sender.currentPage, section: 0)
+        collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
+    }
+    
     @IBAction func addCardData(_ sender: Any) {
         let addCardModalVC = CardDataModalViewController(
             addDataDelegate: self,
