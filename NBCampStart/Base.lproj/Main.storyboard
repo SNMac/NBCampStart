@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="TsU-Af-9Ut">
-    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <device id="retina6_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Image references" minToolsVersion="12.0"/>
@@ -15,19 +15,19 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="NBCampStartViewController" customModule="NBCampStart" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="440" height="956"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="zep" translatesAutoresizingMaskIntoConstraints="NO" id="VjT-1b-PAq">
-                                <rect key="frame" x="0.0" y="103" width="393" height="749"/>
+                                <rect key="frame" x="0.0" y="106" width="440" height="850"/>
                             </imageView>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="4S7-tZ-dVE">
-                                <rect key="frame" x="0.0" y="103" width="393" height="524"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="4S7-tZ-dVE">
+                                <rect key="frame" x="0.0" y="136" width="440" height="586.66666666666663"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="4S7-tZ-dVE" secondAttribute="height" multiplier="3:4" id="Ke5-OQ-2IB"/>
+                                    <constraint firstAttribute="width" secondItem="4S7-tZ-dVE" secondAttribute="height" multiplier="3:4" id="eoQ-wc-ipS"/>
                                 </constraints>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="hPp-Oj-mVp">
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="hPp-Oj-mVp">
                                     <size key="itemSize" width="393" height="464"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -35,7 +35,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CardCell" id="TVp-I7-3DR" customClass="CardCell" customModule="NBCampStart" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="30" width="393" height="464"/>
+                                        <rect key="frame" x="0.0" y="61.333333333333336" width="393" height="464"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="8rc-W6-wjI">
                                             <rect key="frame" x="0.0" y="0.0" width="393" height="464"/>
@@ -61,7 +61,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QDI-nF-r2U">
-                                                    <rect key="frame" x="180" y="428.33333333333331" width="33" height="15.666666666666686"/>
+                                                    <rect key="frame" x="180" y="428" width="33" height="16"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -91,8 +91,11 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="0Xw-Go-Mx5">
+                                <rect key="frame" x="183.66666666666666" y="722.66666666666663" width="72.999999999999972" height="26"/>
+                            </pageControl>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fAw-7k-x0o">
-                                <rect key="frame" x="171.66666666666666" y="647" width="50" height="50"/>
+                                <rect key="frame" x="195" y="768.66666666666663" width="50" height="50"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" cornerStyle="capsule">
                                     <imageReference key="image" image="plus" catalog="system" symbolScale="default"/>
@@ -106,15 +109,17 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="fAw-7k-x0o" firstAttribute="top" secondItem="4S7-tZ-dVE" secondAttribute="bottom" constant="20" id="4KZ-Qy-Oyx"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="4S7-tZ-dVE" secondAttribute="trailing" id="5wj-ha-LvZ"/>
                             <constraint firstItem="fAw-7k-x0o" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="C8r-F5-OjK"/>
                             <constraint firstItem="4S7-tZ-dVE" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="JVx-Y1-RiP"/>
-                            <constraint firstItem="4S7-tZ-dVE" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="OWf-yr-e2v"/>
+                            <constraint firstItem="0Xw-Go-Mx5" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="NDU-e5-7fR"/>
+                            <constraint firstItem="4S7-tZ-dVE" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="30" id="OWf-yr-e2v"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="VjT-1b-PAq" secondAttribute="trailing" id="TEc-GT-sBK"/>
+                            <constraint firstItem="fAw-7k-x0o" firstAttribute="top" secondItem="0Xw-Go-Mx5" secondAttribute="bottom" constant="20" id="ToX-do-18d"/>
                             <constraint firstItem="VjT-1b-PAq" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="dTe-RS-Suf"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="top" secondItem="VjT-1b-PAq" secondAttribute="top" id="fEg-iK-bem"/>
                             <constraint firstItem="VjT-1b-PAq" firstAttribute="bottom" secondItem="8bC-Xf-vdC" secondAttribute="bottom" id="kiq-Jd-UMk"/>
+                            <constraint firstItem="0Xw-Go-Mx5" firstAttribute="top" secondItem="4S7-tZ-dVE" secondAttribute="bottom" id="niO-Og-5Uf"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="sGl-KK-C3E"/>
@@ -122,6 +127,7 @@
                         <outlet property="addButton" destination="fAw-7k-x0o" id="Bee-p8-DKq"/>
                         <outlet property="backgroundImageView" destination="VjT-1b-PAq" id="WpQ-5i-IUP"/>
                         <outlet property="collectionView" destination="4S7-tZ-dVE" id="HgN-db-5K3"/>
+                        <outlet property="pageControl" destination="0Xw-Go-Mx5" id="i1y-Vr-Xbr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -134,7 +140,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="TsU-Af-9Ut" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="QfV-kq-vOu">
-                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <rect key="frame" x="0.0" y="62" width="440" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -151,7 +157,7 @@
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="zep" width="852" height="1432"/>
         <systemColor name="placeholderTextColor">
-            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29803921568627451" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29803921570000003" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

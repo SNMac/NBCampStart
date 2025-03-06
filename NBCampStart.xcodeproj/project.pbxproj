@@ -8,11 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		5B2AAF892D77686A005EC1A0 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 5B2AAF882D77686A005EC1A0 /* .gitignore */; };
+		5B2C86142D79AE2600A4DEFD /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5B2C86122D79AE2600A4DEFD /* Model.xcdatamodeld */; };
+		5B45C8A52D794E8A00A0F56B /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B45C8A42D794E8A00A0F56B /* CoreDataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		5B2AAF602D7696F2005EC1A0 /* NBCampStart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NBCampStart.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B2AAF882D77686A005EC1A0 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		5B2C86132D79AE2600A4DEFD /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		5B45C8A42D794E8A00A0F56B /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -50,6 +54,8 @@
 		5B2AAF572D7696F2005EC1A0 = {
 			isa = PBXGroup;
 			children = (
+				5B2C86122D79AE2600A4DEFD /* Model.xcdatamodeld */,
+				5B45C8A42D794E8A00A0F56B /* CoreDataManager.swift */,
 				5B2AAF882D77686A005EC1A0 /* .gitignore */,
 				5B2AAF622D7696F2005EC1A0 /* NBCampStart */,
 				5B2AAF612D7696F2005EC1A0 /* Products */,
@@ -139,6 +145,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B45C8A52D794E8A00A0F56B /* CoreDataManager.swift in Sources */,
+				5B2C86142D79AE2600A4DEFD /* Model.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -346,6 +354,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		5B2C86122D79AE2600A4DEFD /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				5B2C86132D79AE2600A4DEFD /* Model.xcdatamodel */,
+			);
+			currentVersion = 5B2C86132D79AE2600A4DEFD /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 5B2AAF582D7696F2005EC1A0 /* Project object */;
 }

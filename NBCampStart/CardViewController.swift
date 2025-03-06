@@ -10,14 +10,13 @@ import UIKit
 
 // MARK: - Protocols
 protocol EditDataDelegate: AnyObject {
-    func editData(cardData: CardData, indexPathItem: Int)
-    func deleteData(indexPathItem: Int)
+    func editData(cardData: CardData, isImageDirty: Bool)
+    func deleteData(uuid: UUID)
 }
 
 class CardViewController: UIViewController {
     weak var sendDataDelegate: SendDataDelegate?
     var cardData: CardData
-    let indexPathItem: Int
     
     
     // MARK: - UI Components
@@ -29,15 +28,11 @@ class CardViewController: UIViewController {
     @objc func onEdit() {
         let editCardModalVC = CardDataModalViewController(
             editDataDelegate: self,
-            isEdit: true,
-            cardData: cardData,
-            indexPathItem: indexPathItem
+            isEditModal: true,
+            cardData: cardData
         )
         
         let modalNC = UINavigationController(rootViewController: editCardModalVC)
-        if let sheet = modalNC.sheetPresentationController {
-            sheet.detents = [.large()]
-        }
         self.present(modalNC, animated: true)
     }
     
@@ -75,10 +70,9 @@ class CardViewController: UIViewController {
     
     
     // MARK: - Initializer
-    init(sendDataDelegate: SendDataDelegate, cardData: CardData, indexPathItem: Int) {
+    init(sendDataDelegate: SendDataDelegate, cardData: CardData) {
         self.sendDataDelegate = sendDataDelegate
         self.cardData = cardData
-        self.indexPathItem = indexPathItem
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -133,7 +127,7 @@ private extension CardViewController {
             objectiveLabel.trailingAnchor.constraint(equalTo: resolutionLabel.trailingAnchor),
             
             dateLabel.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor),
-            dateLabel.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -40),
+            dateLabel.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -40)
         ])
     }
     
@@ -150,14 +144,14 @@ private extension CardViewController {
 
 // MARK: - EditDataDelegate
 extension CardViewController: EditDataDelegate {
-    func editData(cardData: CardData, indexPathItem: Int) {
+    func editData(cardData: CardData, isImageDirty: Bool) {
         self.cardData = cardData
-        self.sendDataDelegate?.editData(cardData: cardData, indexPathItem: indexPathItem)
+        self.sendDataDelegate?.editData(cardData: cardData, isImageDirty: isImageDirty)
         self.setCardData()
     }
     
-    func deleteData(indexPathItem: Int) {
-        self.sendDataDelegate?.deleteData(indexPathItem: indexPathItem)
+    func deleteData(uuid: UUID) {
+        self.sendDataDelegate?.deleteData(uuid: cardData.uuid)
         self.navigationController?.popViewController(animated: true)
     }
 }

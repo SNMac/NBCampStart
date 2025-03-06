@@ -2,13 +2,14 @@
 //  CardData.swift
 //  NBCampStart
 //
-//  Created by 서동환 on 3/4/25.
+//  Created by 서동환 on 3/6/25.
 //
 
 import Foundation
 import UIKit
 
-struct CardData {
+struct CardData: Hashable {
+    var uuid: UUID
     var studyImage: UIImage?  // 공부할 내용 이미지
     var resolution: String?  // 다짐
     var objective: String? // 학습 목표

@@ -9,13 +9,14 @@ import UIKit
 import PhotosUI
 
 class CardDataModalViewController: UIViewController {
+    
     weak var addDataDelegate: AddDataDelegate?
     weak var editDataDelegate: EditDataDelegate?
     
     private var itemProviders: [NSItemProvider] = []
-    private var isEdit: Bool
-    private var cardData: CardData?
-    private var indexPathItem: Int?
+    private var isEditModal: Bool
+    private var cardData: CardData
+    private var isImageDirty = false
     
     private var studyImage: UIImage? {
         didSet {
@@ -45,25 +46,22 @@ class CardDataModalViewController: UIViewController {
     }()
     
     @objc func onSave() {
-        let image = studyImage
+        cardData.studyImage = studyImage
         var resolution = ""
         if resolutionTextView.textColor != .placeholderText {
             resolution = resolutionTextView.text
         }
+        cardData.resolution = resolution
         var objective = ""
         if objectiveTextView.textColor != .placeholderText {
             objective = objectiveTextView.text
         }
-        cardData = CardData(
-            studyImage: image,
-            resolution: resolution,
-            objective: objective,
-            date: cardData?.date ?? .now
-        )
-        if isEdit {
-            self.editDataDelegate?.editData(cardData: cardData!, indexPathItem: indexPathItem!)
+        cardData.objective = objective
+        
+        if isEditModal {
+            self.editDataDelegate?.editData(cardData: cardData, isImageDirty: isImageDirty)
         } else {
-            self.addDataDelegate?.addData(cardData: cardData!)
+            self.addDataDelegate?.addData(cardData: cardData)
         }
         self.dismiss(animated: true)
     }
@@ -173,15 +171,17 @@ class CardDataModalViewController: UIViewController {
     init(
         addDataDelegate: AddDataDelegate? = nil,
         editDataDelegate: EditDataDelegate? = nil,
-        isEdit: Bool,
-        cardData: CardData? = nil,
-        indexPathItem: Int? = nil
+        isEditModal: Bool,
+        cardData: CardData? = nil
     ) {
         self.addDataDelegate = addDataDelegate
         self.editDataDelegate = editDataDelegate
-        self.isEdit = isEdit
-        self.cardData = cardData
-        self.indexPathItem = indexPathItem
+        self.isEditModal = isEditModal
+        if isEditModal {
+            self.cardData = cardData!
+        } else {
+            self.cardData = CardData(uuid: UUID(), date: .now)
+        }
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -195,11 +195,10 @@ class CardDataModalViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .systemBackground
         resolutionTextView.alignTextVerticallyInContainer()
-        deleteCardButton.isHidden = isEdit ? false : true
+        deleteCardButton.isHidden = isEditModal ? false : true
         
         setupNavigation()
         setupUI()
-        setCardData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -226,7 +225,7 @@ class CardDataModalViewController: UIViewController {
 // MARK: - UI Methods
 private extension CardDataModalViewController {
     func setupNavigation() {
-        self.title = isEdit ? "편집" : "신규"
+        self.title = isEditModal ? "편집" : "신규"
         self.navigationController?.navigationBar.backgroundColor = .systemBackground
         self.navigationItem.leftBarButtonItem = self.cancelButton
         self.navigationItem.rightBarButtonItem = self.saveButton
@@ -252,10 +251,8 @@ private extension CardDataModalViewController {
         let deleteAlertAction = UIAction { _ in
             let alert = UIAlertController(title: nil, message: "이 카드를 삭제하겠습니까?", preferredStyle: .actionSheet)
             let delete = UIAlertAction(title: "카드 삭제", style: .destructive) { _ in
-                if let index = self.indexPathItem {
-                    self.editDataDelegate?.deleteData(indexPathItem: index)
-                    self.dismiss(animated: true)
-                }
+                self.editDataDelegate?.deleteData(uuid: self.cardData.uuid)
+                self.dismiss(animated: true)
             }
             let cancel = UIAlertAction(title: "취소", style: .cancel)
             alert.addAction(delete)
@@ -266,6 +263,9 @@ private extension CardDataModalViewController {
         setImageButton.addAction(setImageAction, for: .touchUpInside)
         
         deleteImageButton.addAction(UIAction { _ in
+            if self.studyImage != nil {
+                self.isImageDirty = true
+            }
             self.studyImage = nil
         }, for: .touchUpInside)
         
@@ -323,8 +323,9 @@ private extension CardDataModalViewController {
     }
     
     func setCardData() {
-        studyImage = cardData?.studyImage
-        if let resolution = cardData?.resolution {
+        studyImage = cardData.studyImage
+        
+        if let resolution = cardData.resolution {
             if resolution.isEmpty {
                 resolutionTextView.text = resoutionPlaceHolder
                 resolutionTextView.textColor = .placeholderText
@@ -336,7 +337,7 @@ private extension CardDataModalViewController {
             }
         }
         
-        if let objective = cardData?.objective {
+        if let objective = cardData.objective {
             if objective.isEmpty {
                 objectiveTextView.text = objectivePlaceHolder
                 objectiveTextView.textColor = .placeholderText
@@ -348,7 +349,7 @@ private extension CardDataModalViewController {
             }
         }
         let dateFormatter = DateFormatter.getDateFormatter()
-        let convertDate = dateFormatter.string(from: cardData?.date ?? .now)
+        let convertDate = dateFormatter.string(from: cardData.date)
         dateLabel.text = convertDate
     }
 }
@@ -356,24 +357,6 @@ private extension CardDataModalViewController {
 
 // MARK: - Private Methods
 private extension CardDataModalViewController {
-    func getCardData() -> Bool {
-        let dateFormatter = DateFormatter.getDateFormatter()
-        dateFormatter.dateFormat = "yyyy.M.d"
-        
-        if let cardData = self.cardData {
-            self.studyImage = cardData.studyImage
-            self.resolutionTextView.text = cardData.resolution
-            self.objectiveTextView.text = cardData.objective
-            let convertDate = dateFormatter.string(from: cardData.date)
-            self.dateLabel.text = convertDate
-            return true
-        } else {
-            let convertDate = dateFormatter.string(from: .now)
-            self.dateLabel.text = convertDate
-            return false
-        }
-    }
-    
     func setImage() {
         guard let itemProvider = itemProviders.first else { return }
         
@@ -383,6 +366,9 @@ private extension CardDataModalViewController {
                       let image = image as? UIImage else { return }
                 
                 DispatchQueue.main.async {
+                    if self.studyImage != image {
+                        self.isImageDirty = true
+                    }
                     self.studyImage = image
                 }
             }
@@ -390,7 +376,7 @@ private extension CardDataModalViewController {
     }
     
     @objc func keyboardUp(notification:NSNotification) {
-        if let keyboardFrame:NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
             
             self.view.transform = CGAffineTransform(translationX: 0, y: -(keyboardRectangle.height - self.view.safeAreaInsets.bottom))

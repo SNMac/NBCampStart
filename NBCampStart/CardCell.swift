@@ -18,17 +18,17 @@ class CardCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.layer.cornerRadius = 10
+        studyImageView.layer.cornerRadius = 10
     }
     
     
     // MARK: - Configure
-    func configure(cardData: CardData) {
-        studyImageView.image = cardData.studyImage
-        studyImageView.layer.cornerRadius = 10
-        resolutionLabel.text = cardData.resolution
-        objectiveLabel.text = cardData.objective
+    func configure(_ cardData: CardData?) {
+        studyImageView.image = cardData?.studyImage
+        resolutionLabel.text = cardData?.resolution
+        objectiveLabel.text = cardData?.objective
         let dateFormatter = DateFormatter.getDateFormatter()
-        let convertDate = dateFormatter.string(from: cardData.date)
+        let convertDate = dateFormatter.string(from: cardData?.date ?? .now)
         dateLabel.text = convertDate
     }
 }
