@@ -33,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     
-    // MARK: - Core Data stack
+    // MARK: - Core Data Stack
 
     lazy var persistentContainer: NSPersistentContainer = {
         /*

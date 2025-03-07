@@ -78,13 +78,12 @@ final class CoreDataManager {
     static func updateData(cardData: CardData, isImageDirty: Bool) {
         guard let context = context else { return }
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>.init(entityName: "CardModel")
-        //        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "CardData")
+//        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "CardModel")  // 이것도 가능
         fetchRequest.predicate = NSPredicate(format: "uuid = %@", cardData.uuid.uuidString)
-        //        fetchRequest.predicate = NSPredicate(format: "uuid = %@", uuid as CVarArg)
         
         do {
             guard let result = try? context.fetch(fetchRequest),
-                  let object = result.first as? NSManagedObject else { return }
+                  let object = result.first as? CardModel else { return }
             
             if isImageDirty {
                 let oldImagePath = object.value(forKey: "studyImagePath") as? String
@@ -99,10 +98,10 @@ final class CoreDataManager {
                 } else {
                     newImagePath = nil
                 }
-                object.setValue(newImagePath, forKey: "studyImagePath")
+                object.studyImagePath = newImagePath
             }
-            object.setValue(cardData.resolution, forKey: "resolution")
-            object.setValue(cardData.objective, forKey: "objective")
+            object.resolution = cardData.resolution
+            object.objective = cardData.objective
             
             try context.save()
             
@@ -119,9 +118,9 @@ final class CoreDataManager {
         
         do {
             guard let result = try? context.fetch(fetchRequest),
-                  let object = result.first as? NSManagedObject else { return }
+                  let object = result.first as? CardModel else { return }
             
-            let studyImagePath = object.value(forKey: "studyImagePath") as? String
+            let studyImagePath = object.studyImagePath
             if let imagePath = studyImagePath {
                 deleteImageAtDocuments(filePath: imagePath)
             }
