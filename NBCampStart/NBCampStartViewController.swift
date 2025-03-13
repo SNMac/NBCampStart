@@ -119,7 +119,7 @@ private extension NBCampStartViewController {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
         snapshot.appendSections([.main])
         snapshot.appendItems(cardModelArr, toSection: .main)
-        dataSource.apply(snapshot, animatingDifferences: false)
+        dataSource.apply(snapshot, animatingDifferences: true)
         
         collectionView.collectionViewLayout = layout()
         collectionView.alwaysBounceVertical = false
@@ -153,7 +153,7 @@ private extension NBCampStartViewController {
         snapshot.appendSections([.main])
         snapshot.appendItems(cardModelArr, toSection: .main)
         snapshot.reconfigureItems(cardModelArr)
-        dataSource.apply(snapshot, animatingDifferences: false)
+        dataSource.apply(snapshot, animatingDifferences: true)
     }
 }
 
@@ -190,7 +190,7 @@ extension NBCampStartViewController: AddDataDelegate {
         reloadData()
         pageControl.currentPage = 0
         let indexPath = IndexPath(item: pageControl.currentPage, section: 0)
-        collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
+        collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
     }
 }
 
