@@ -29,8 +29,8 @@ class CardDataModalViewController: UIViewController {
         }
     }
     
-    
     // MARK: - UI Components
+    
     private lazy var cancelButton: UIBarButtonItem = {
         let button = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(onCancel))
         return button
@@ -166,8 +166,8 @@ class CardDataModalViewController: UIViewController {
         return label
     }()
     
-    
     // MARK: - Initializer
+    
     init(
         addDataDelegate: AddDataDelegate? = nil,
         editDataDelegate: EditDataDelegate? = nil,
@@ -189,8 +189,8 @@ class CardDataModalViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .systemBackground
@@ -221,8 +221,8 @@ class CardDataModalViewController: UIViewController {
     }
 }
 
-
 // MARK: - UI Methods
+
 private extension CardDataModalViewController {
     func setupNavigation() {
         self.title = isEditModal ? "편집" : "신규"
@@ -354,8 +354,8 @@ private extension CardDataModalViewController {
     }
 }
 
-
 // MARK: - Private Methods
+
 private extension CardDataModalViewController {
     func setImage() {
         guard let itemProvider = itemProviders.first else { return }
@@ -388,8 +388,8 @@ private extension CardDataModalViewController {
     }
 }
 
-
 // MARK: - UITextViewDelegate
+
 extension CardDataModalViewController: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         let currentText = textView.text ?? ""
@@ -448,8 +448,8 @@ extension CardDataModalViewController: UITextViewDelegate {
     }
 }
 
-
 // MARK: - PHPickerViewControllerDelegate
+
 extension CardDataModalViewController: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         picker.dismiss(animated: true)

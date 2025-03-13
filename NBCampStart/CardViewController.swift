@@ -7,8 +7,8 @@
 
 import UIKit
 
-
 // MARK: - Protocols
+
 protocol EditDataDelegate: AnyObject {
     func editData(cardData: CardData, isImageDirty: Bool)
     func deleteData(uuid: UUID)
@@ -18,8 +18,8 @@ class CardViewController: UIViewController {
     weak var sendDataDelegate: SendDataDelegate?
     var cardData: CardData
     
-    
     // MARK: - UI Components
+    
     private lazy var editButton: UIBarButtonItem = {
         let button = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(onEdit))
         return button
@@ -68,8 +68,8 @@ class CardViewController: UIViewController {
         return label
     }()
     
-    
     // MARK: - Initializer
+    
     init(sendDataDelegate: SendDataDelegate, cardData: CardData) {
         self.sendDataDelegate = sendDataDelegate
         self.cardData = cardData
@@ -90,8 +90,8 @@ class CardViewController: UIViewController {
     }
 }
 
-
 // MARK: - UI Methods
+
 private extension CardViewController {
     func setupNavigation() {
         self.title = "카드"
@@ -141,8 +141,8 @@ private extension CardViewController {
     }
 }
 
-
 // MARK: - EditDataDelegate
+
 extension CardViewController: EditDataDelegate {
     func editData(cardData: CardData, isImageDirty: Bool) {
         self.cardData = cardData

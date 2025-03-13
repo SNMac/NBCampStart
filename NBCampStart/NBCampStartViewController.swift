@@ -26,8 +26,8 @@ class NBCampStartViewController: UIViewController {
     typealias Item = CardModel
     var dataSource: UICollectionViewDiffableDataSource<Section, Item>!
     
-    
     // MARK: - IBOutlets
+    
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -40,8 +40,8 @@ class NBCampStartViewController: UIViewController {
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var addButton: UIButton!
     
-    
     // MARK: - IBActions
+    
     @IBAction func changePage(_ sender: UIPageControl) {
         let indexPath = IndexPath(item: sender.currentPage, section: 0)
         collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
@@ -57,6 +57,7 @@ class NBCampStartViewController: UIViewController {
     }
     
     // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "내일배움캠프를 시작하며"
@@ -65,8 +66,8 @@ class NBCampStartViewController: UIViewController {
     }
 }
 
-
 // MARK: - UI Methods
+
 private extension NBCampStartViewController {
     func setupUI() {
         promptView.backgroundColor = .systemBackground.withAlphaComponent(0.85)
@@ -157,8 +158,8 @@ private extension NBCampStartViewController {
     }
 }
 
-
 // MARK: - UICollectionViewDelegate
+
 extension NBCampStartViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.item != cardModelArr.count {
@@ -182,8 +183,8 @@ extension NBCampStartViewController: UICollectionViewDelegate {
     }
 }
 
-
 // MARK: - AddDataDelegate
+
 extension NBCampStartViewController: AddDataDelegate {
     func addData(cardData: CardData) {
         CoreDataManager.saveData(cardData: cardData)
@@ -194,8 +195,8 @@ extension NBCampStartViewController: AddDataDelegate {
     }
 }
 
-
 // MARK: - SendDataDelegate
+
 extension NBCampStartViewController: SendDataDelegate {
     func editData(cardData: CardData, isImageDirty: Bool) {
         CoreDataManager.updateData(cardData: cardData, isImageDirty: isImageDirty)

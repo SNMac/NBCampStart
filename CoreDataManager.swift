@@ -12,8 +12,8 @@ import OSLog
 final class CoreDataManager {
     private static let log = OSLog(subsystem: "com.snmac.NBCampStart", category: "CoreDataManager")
     
-    
     // MARK: - Core Data
+    
     private static let context: NSManagedObjectContext? = {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             os_log("AppDelegate가 초기화되지 않았습니다.", log: log, type: .error)
@@ -133,8 +133,8 @@ final class CoreDataManager {
         }
     }
     
-    
     // MARK: - Image Data
+    
     // 로컬 디렉토리에 이미지 저장
     static func saveImageToDocuments(image: UIImage, fileName: String) -> String? {
         if let data = image.jpegData(compressionQuality: 0.5) {
