@@ -18,13 +18,13 @@ protocol SendDataDelegate: AnyObject {
 }
 
 class NBCampStartViewController: UIViewController {
-    private var cardModelArr: [CardModel] = []
+    private var cardDataList = [CardData]()
+    private var cardDataDic = [UUID: CardData]()
     
-    enum Section: Int {
+    private enum Section: Int {
         case main
     }
-    typealias Item = CardModel
-    var dataSource: UICollectionViewDiffableDataSource<Section, Item>!
+    private var dataSource: UICollectionViewDiffableDataSource<Section, UUID>!
     
     // MARK: - IBOutlets
     
@@ -56,7 +56,7 @@ class NBCampStartViewController: UIViewController {
         self.present(modalNC, animated: true)
     }
     
-    // MARK: - Lifecycle
+    // MARK: - UIViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,13 +77,15 @@ private extension NBCampStartViewController {
         let convertDate = dateFormatter.string(from: .now)
         promptDateLabel.text = convertDate
         pageControl.backgroundStyle = .prominent
-        fetchCardModel()
+        fetchCardData()
         setCollectionView()
     }
     
-    func fetchCardModel() {
-        cardModelArr = CoreDataManager.fetchData()
-        pageControl.numberOfPages = cardModelArr.count
+    func fetchCardData() {
+        cardDataList = CoreDataManager.fetchData()
+        let tupleArray = cardDataList.map { ($0.uuid, $0) }
+        cardDataDic = Dictionary(uniqueKeysWithValues: tupleArray)
+        pageControl.numberOfPages = cardDataDic.count
         if pageControl.numberOfPages == 0 {
             pageControl.isHidden = true
             promptView.isHidden = false
@@ -94,33 +96,21 @@ private extension NBCampStartViewController {
     }
     
     func setCollectionView() {
-        dataSource = UICollectionViewDiffableDataSource<Section, Item>(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
+        dataSource = UICollectionViewDiffableDataSource<Section, UUID>(collectionView: collectionView, cellProvider: { collectionView, indexPath, uuid in
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CardCell", for: indexPath) as? CardCell else {
                 return UICollectionViewCell()
             }
             
-            let cardModel = item
-            var image: UIImage?
-            if let imagePath = cardModel.studyImagePath {
-                image = CoreDataManager.fetchImageFromDocuments(filePath: imagePath)
-            }
-            
-            let cardData = CardData(
-                uuid: cardModel.uuid!,
-                studyImage: image,
-                resolution: cardModel.resolution,
-                objective: cardModel.objective,
-                date: cardModel.date!
-            )
+            let cardData = self.cardDataDic[uuid]
             cell.backgroundColor = .secondarySystemBackground
             cell.configure(cardData)
             return cell
         })
         
-        var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
+        var snapshot = NSDiffableDataSourceSnapshot<Section, UUID>()
         snapshot.appendSections([.main])
-        snapshot.appendItems(cardModelArr, toSection: .main)
-        dataSource.apply(snapshot, animatingDifferences: true)
+        snapshot.appendItems(cardDataList.map { $0.uuid }, toSection: .main)
+        dataSource.applySnapshotUsingReloadData(snapshot)
         
         collectionView.collectionViewLayout = layout()
         collectionView.alwaysBounceVertical = false
@@ -148,12 +138,20 @@ private extension NBCampStartViewController {
         return layout
     }
     
+    // 특정 uuid에 해당하는 셀만 업데이트(추가, 삭제 X)
+    func updateData(uuid: UUID) {
+        fetchCardData()
+        var snapshot = dataSource.snapshot()
+        snapshot.reconfigureItems([uuid])
+        dataSource.apply(snapshot, animatingDifferences: true)
+    }
+    
+    // 모든 셀 업데이트(추가, 삭제 O)
     func reloadData() {
-        fetchCardModel()
-        var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
+        fetchCardData()
+        var snapshot = NSDiffableDataSourceSnapshot<Section, UUID>()
         snapshot.appendSections([.main])
-        snapshot.appendItems(cardModelArr, toSection: .main)
-        snapshot.reconfigureItems(cardModelArr)
+        snapshot.appendItems(cardDataList.map { $0.uuid }, toSection: .main)
         dataSource.apply(snapshot, animatingDifferences: true)
     }
 }
@@ -162,21 +160,11 @@ private extension NBCampStartViewController {
 
 extension NBCampStartViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.item != cardModelArr.count {
-            let card = cardModelArr[indexPath.item]
-            var image: UIImage?
-            if let imagePath = card.studyImagePath {
-                image = CoreDataManager.fetchImageFromDocuments(filePath: imagePath)
-            }
-            let cardData = CardData(
-                uuid: card.uuid ?? UUID(),
-                studyImage: image,
-                resolution: card.resolution,
-                objective: card.objective,
-                date: card.date ?? .now)
+        if let cardDataId = dataSource.itemIdentifier(for: indexPath) {
+            let cardData = cardDataDic[cardDataId]
             let cardVC = CardViewController(
                 sendDataDelegate: self,
-                cardData: cardData
+                cardData: cardData!
             )
             self.navigationController?.pushViewController(cardVC, animated: true)
         }
@@ -200,7 +188,7 @@ extension NBCampStartViewController: AddDataDelegate {
 extension NBCampStartViewController: SendDataDelegate {
     func editData(cardData: CardData, isImageDirty: Bool) {
         CoreDataManager.updateData(cardData: cardData, isImageDirty: isImageDirty)
-        reloadData()
+        updateData(uuid: cardData.uuid)
     }
     
     func deleteData(uuid: UUID) {

@@ -13,7 +13,7 @@ class CardCell: UICollectionViewCell {
     @IBOutlet weak var objectiveLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     
-    // MARK: - Lifecycle
+    // MARK: - NSObject
     
     override func awakeFromNib() {
         super.awakeFromNib()

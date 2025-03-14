@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 struct CardData: Hashable {
-    var uuid: UUID
+    let uuid: UUID
     var studyImage: UIImage?  // 공부할 내용 이미지
     var resolution: String?  // 다짐
     var objective: String? // 학습 목표

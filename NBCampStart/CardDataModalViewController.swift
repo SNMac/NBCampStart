@@ -189,7 +189,7 @@ class CardDataModalViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Lifecycle
+    // MARK: - UIViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -214,6 +214,8 @@ class CardDataModalViewController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
+    
+    // MARK: - UIResponder
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
@@ -402,6 +404,7 @@ extension CardDataModalViewController: UITextViewDelegate {
                 textView.resignFirstResponder()
                 return false
             }
+            
             return changedText.count <= resolutionMaxLength
         } else if textView == objectiveTextView {
             return changedText.count <= objectiveMaxLength
@@ -437,7 +440,6 @@ extension CardDataModalViewController: UITextViewDelegate {
             }
         }
     }
-    
     
     func textViewDidChange(_ textView: UITextView) {
         if textView == resolutionTextView {

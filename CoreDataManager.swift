@@ -56,7 +56,7 @@ final class CoreDataManager {
         }
     }
     
-    static func fetchData() -> [CardModel] {
+    static func fetchData() -> [CardData] {
         guard let context = context else { return [] }
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "CardModel")
         
@@ -64,10 +64,34 @@ final class CoreDataManager {
         fetchRequest.sortDescriptors = [sortDescriptor]
         
         do {
-            guard let cardList = try context.fetch(fetchRequest) as? [CardModel] else {
+            guard let cardModelList = try context.fetch(fetchRequest) as? [CardModel] else {
                 return []
             }
-            return cardList
+            
+            var cardDataList = [CardData]()
+            
+            for cardModel in cardModelList {
+                let data: CardData
+                if let filePath = cardModel.studyImagePath {
+                    let studyImage = fetchImageFromDocuments(filePath: filePath)
+                    data = CardData(
+                        uuid: cardModel.uuid!,
+                        studyImage: studyImage,
+                        resolution: cardModel.resolution,
+                        objective: cardModel.objective,
+                        date: cardModel.date!
+                    )
+                } else {
+                    data = CardData(
+                        uuid: cardModel.uuid!,
+                        resolution: cardModel.resolution,
+                        objective: cardModel.objective,
+                        date: cardModel.date!
+                    )
+                }
+                cardDataList.append(data)
+            }
+            return cardDataList
         } catch {
             let msg = error.localizedDescription
             os_log("error: %@", log: log, type: .error, msg)
