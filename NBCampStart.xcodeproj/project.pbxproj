@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5B2440DC2D8288410027D7E2 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 5B2440DB2D8288410027D7E2 /* README.md */; };
 		5B2AAF892D77686A005EC1A0 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 5B2AAF882D77686A005EC1A0 /* .gitignore */; };
 		5B2C86142D79AE2600A4DEFD /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5B2C86122D79AE2600A4DEFD /* Model.xcdatamodeld */; };
 		5B45C8A52D794E8A00A0F56B /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B45C8A42D794E8A00A0F56B /* CoreDataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5B2440DB2D8288410027D7E2 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		5B2AAF602D7696F2005EC1A0 /* NBCampStart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NBCampStart.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B2AAF882D77686A005EC1A0 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		5B2C86132D79AE2600A4DEFD /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
@@ -38,6 +40,11 @@
 			path = NBCampStart;
 			sourceTree = "<group>";
 		};
+		5B58A8282D84374A0077652A /* Resources */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Resources;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +61,8 @@
 		5B2AAF572D7696F2005EC1A0 = {
 			isa = PBXGroup;
 			children = (
+				5B58A8282D84374A0077652A /* Resources */,
+				5B2440DB2D8288410027D7E2 /* README.md */,
 				5B2C86122D79AE2600A4DEFD /* Model.xcdatamodeld */,
 				5B45C8A42D794E8A00A0F56B /* CoreDataManager.swift */,
 				5B2AAF882D77686A005EC1A0 /* .gitignore */,
@@ -87,6 +96,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				5B2AAF622D7696F2005EC1A0 /* NBCampStart */,
+				5B58A8282D84374A0077652A /* Resources */,
 			);
 			name = NBCampStart;
 			packageProductDependencies = (
@@ -134,6 +144,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B2440DC2D8288410027D7E2 /* README.md in Resources */,
 				5B2AAF892D77686A005EC1A0 /* .gitignore in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -176,9 +187,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.snmac.NBCampStart;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -205,9 +220,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.snmac.NBCampStart;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
